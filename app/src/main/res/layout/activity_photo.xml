@@ -1,0 +1,35 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="me.tamhuynh.photogallery.activities.PhotoActivity">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/photo_full_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+    <!--<FrameLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:alpha="0.6"-->
+        <!--android:background="@android:color/black"-->
+        <!--tools:ignore="UselessParent">-->
+
+        <!--<RadioGroup-->
+            <!--android:id="@+id/pager_indicator_container"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_marginBottom="32dp"-->
+            <!--android:layout_marginTop="32dp"-->
+            <!--android:orientation="horizontal">-->
+
+        <!--</RadioGroup>-->
+    <!--</FrameLayout>-->
+
+</FrameLayout>

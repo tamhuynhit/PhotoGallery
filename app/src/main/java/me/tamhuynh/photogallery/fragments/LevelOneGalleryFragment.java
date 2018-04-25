@@ -30,10 +30,19 @@ public class LevelOneGalleryFragment extends SectionFragment {
     }
 
     @Override
+    public String getDescription() {
+        return "Shared Element Level 1:\n" +
+                "- Shared RecyclerView item to 1 fullscreen photo\n" +
+                "- Two views load the same image\n" +
+                "- Return transition: Automatically return to PREVIOUS shared view";
+    }
+
+    @Override
     protected void initView() {}
 
     @Override
     protected void handleItemClicked(ViewHolder holder, GalleryItem item) {
+        // Show fullscreen activity with single photo
         Intent intent = new Intent(getActivity(), LevelOneFullPhotoActivity.class);
         intent.putExtra(LevelOneFullPhotoActivity.PHOTO_GALLERY_ITEM, item);
 

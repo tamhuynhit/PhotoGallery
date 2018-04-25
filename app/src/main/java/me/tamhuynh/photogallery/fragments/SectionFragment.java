@@ -27,6 +27,8 @@ import me.tamhuynh.photogallery.models.GalleryItem;
 /**
  * Created by tamhuynh on 3/22/18.
  *
+ * Base class for each shared element transition level fragment
+ * See: blog.tamhuynh.me for the tutorial
  */
 public abstract class SectionFragment extends Fragment {
     @BindView(R.id.photo_recyclerview) RecyclerView mPhotoList;
@@ -34,15 +36,17 @@ public abstract class SectionFragment extends Fragment {
     public final static String FRAGMENT_ARG_GALLERY = "arg_gallery";
 
     protected ArrayList<GalleryItem> mGalleryItems;
+    protected ImageView mSelectedImageView;
 
     protected abstract void initView();
     public abstract String getTitle();
+    public abstract String getDescription();
     protected abstract void handleItemClicked(ViewHolder holder, GalleryItem item);
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_gallery, container, false);
+        View view = inflater.inflate(R.layout.fragment_poster_list, container, false);
 
         ButterKnife.bind(this, view);
 
@@ -70,7 +74,13 @@ public abstract class SectionFragment extends Fragment {
         }
     }
 
-    private class RecyclerViewGalleryAdapter extends RecyclerView.Adapter<ViewHolder> {
+    class RecyclerViewGalleryAdapter extends RecyclerView.Adapter<ViewHolder> {
+        private AdapterItemListener mListener;
+
+        public void setListener(AdapterItemListener listener) {
+            mListener = listener;
+        }
+
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -86,19 +96,20 @@ public abstract class SectionFragment extends Fragment {
 
             final GalleryItem galleryItem = mGalleryItems.get(position);
 
-            // Set the transition name
+            // Set the transition name to each ImageView
             ViewCompat.setTransitionName(holder.mPhotoImg, String.valueOf(galleryItem.getId()));
 
-            // Load the thumbnail image to the list
+            // Load the thumbnail image to the list, cache it into memory and data so the fullscreen thumbnail can be loaded faster
             Glide.with(getActivity())
                     .load(Uri.parse(galleryItem.getThumbnailImg()))
                     .apply(new RequestOptions().skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.DATA))
                     .into(holder.mPhotoImg);
 
-
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    mSelectedImageView = holder.mPhotoImg;
+
                     handleItemClicked(holder, galleryItem);
                 }
             });
@@ -108,5 +119,17 @@ public abstract class SectionFragment extends Fragment {
         public int getItemCount() {
             return mGalleryItems != null ? mGalleryItems.size() : 0;
         }
+
+        @Override
+        public void onViewAttachedToWindow(@NonNull ViewHolder holder) {
+            super.onViewAttachedToWindow(holder);
+
+            if (mListener != null)
+                mListener.onAttachedToWindow(holder);
+        }
+    }
+
+    public interface AdapterItemListener {
+        void onAttachedToWindow(@NonNull ViewHolder holder);
     }
 }

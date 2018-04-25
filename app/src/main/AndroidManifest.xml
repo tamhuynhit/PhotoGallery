@@ -38,6 +38,20 @@
             android:label="@string/title_activity_photo">
 
         </activity>
+
+        <activity
+            android:name=".activities.LevelThreeFullPhotoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_photo">
+
+        </activity>
+
+        <activity
+            android:name=".activities.LevelFourFullPhotoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_photo">
+
+        </activity>
     </application>
 
 </manifest>

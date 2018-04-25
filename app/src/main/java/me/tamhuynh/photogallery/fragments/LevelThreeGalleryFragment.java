@@ -7,17 +7,17 @@ import android.support.v4.view.ViewCompat;
 
 import java.util.ArrayList;
 
-import me.tamhuynh.photogallery.activities.LevelTwoFullPhotoActivity;
+import me.tamhuynh.photogallery.activities.LevelThreeFullPhotoActivity;
 import me.tamhuynh.photogallery.models.GalleryItem;
 
 /**
  * Created by tamhuynh on 3/22/18.
  *
  */
-public class LevelTwoGalleryFragment extends SectionFragment {
+public class LevelThreeGalleryFragment extends SectionFragment {
 
-    public static LevelTwoGalleryFragment newInstance(ArrayList<GalleryItem> galleryItems) {
-        LevelTwoGalleryFragment fragment = new LevelTwoGalleryFragment();
+    public static LevelThreeGalleryFragment newInstance(ArrayList<GalleryItem> galleryItems) {
+        LevelThreeGalleryFragment fragment = new LevelThreeGalleryFragment();
         Bundle data = new Bundle();
         data.putParcelableArrayList(SectionFragment.FRAGMENT_ARG_GALLERY, galleryItems);
         fragment.setArguments(data);
@@ -26,24 +26,25 @@ public class LevelTwoGalleryFragment extends SectionFragment {
 
     @Override
     public String getTitle() {
-        return "Level 2";
+        return "Level 3";
     }
 
     @Override
     public String getDescription() {
-        return "Shared Element Level 2:\n" +
-                "- Shared RecyclerView item to 1 fullscreen photo\n" +
+        return "Shared Element Level 3:\n" +
+                "- Shared RecyclerView item to a ViewPager fullscreen layout\n" +
                 "- Two views load 2 different image: thumbnail size and full size\n" +
-                "- Return transition: Automatically return to PREVIOUS shared view";
+                "- Return transition: Automatically return to PREVIOUS selected shared view";
     }
 
     @Override
     protected void initView() {}
 
     @Override
-    protected void handleItemClicked(ViewHolder holder, GalleryItem item) {
-        Intent intent = new Intent(getActivity(), LevelTwoFullPhotoActivity.class);
-        intent.putExtra(LevelTwoFullPhotoActivity.PHOTO_GALLERY_ITEM, item);
+    protected void handleItemClicked(SectionFragment.ViewHolder holder, GalleryItem item) {
+        Intent intent = new Intent(getActivity(), LevelThreeFullPhotoActivity.class);
+        intent.putExtra(LevelThreeFullPhotoActivity.PHOTO_GALLERY_LIST, mGalleryItems);
+        intent.putExtra(LevelThreeFullPhotoActivity.PHOTO_FOCUSED_INDEX, holder.getAdapterPosition());
 
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                 getActivity(), holder.mPhotoImg, ViewCompat.getTransitionName(holder.mPhotoImg));

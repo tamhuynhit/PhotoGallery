@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 import me.tamhuynh.photogallery.R;
 import me.tamhuynh.photogallery.models.GalleryItem;
 
-public class PhotoActivity extends AppCompatActivity {
+public class LevelTwoFullPhotoActivity extends AppCompatActivity {
 
     @BindView(R.id.photo_full_list) ViewPager mPhotoPager;
 //    @BindView(R.id.pager_indicator_container) RadioGroup mIndicatorContainer;
@@ -47,7 +47,7 @@ public class PhotoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_photo);
+        setContentView(R.layout.activity_full_photo_level_2);
         ButterKnife.bind(this);
 
         Bundle data = getIntent().getExtras();
@@ -66,15 +66,15 @@ public class PhotoActivity extends AppCompatActivity {
     private class PhotoPagerAdapter extends PagerAdapter {
         @NonNull
         @Override
-        public Object instantiateItem(@NonNull ViewGroup container, final int position) {
+        public Object instantiateItem(@NonNull ViewGroup container, int position) {
             GalleryItem item = mGalleryItems.get(position);
 
-            final PhotoView photoView = new PhotoView(PhotoActivity.this);
+            final PhotoView photoView = new PhotoView(LevelTwoFullPhotoActivity.this);
             photoView.setTag(LAYOUT_TAG + position);
             ViewCompat.setTransitionName(photoView, String.valueOf(item.getId()));
 
             // Define thumbnail request, using the thumbnail img (which is already been cached if loaded in previous list activity)
-            RequestBuilder<Drawable> thumbnailBuilder =  Glide.with(PhotoActivity.this)
+            RequestBuilder<Drawable> thumbnailBuilder =  Glide.with(LevelTwoFullPhotoActivity.this)
                     .load(Uri.parse(item.getThumbnailImg()))
                     .apply(new RequestOptions().dontAnimate().skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE));
 
@@ -98,7 +98,7 @@ public class PhotoActivity extends AppCompatActivity {
             }
 
             // Load original poster using the thumbnail request
-            Glide.with(PhotoActivity.this)
+            Glide.with(LevelTwoFullPhotoActivity.this)
                     .load(Uri.parse(item.getOriginalImg()))
                     .thumbnail(thumbnailBuilder)
                     .apply(new RequestOptions().dontAnimate().skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE))

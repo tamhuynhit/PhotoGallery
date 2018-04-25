@@ -8,20 +8,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.tamhuynh.photogallery.R;
-import me.tamhuynh.photogallery.fragments.ListViewGalleryFragment;
-import me.tamhuynh.photogallery.fragments.RecyclerViewGalleryFragment;
+import me.tamhuynh.photogallery.fragments.LevelTwoGalleryFragment;
+import me.tamhuynh.photogallery.fragments.LevelOneGalleryFragment;
 import me.tamhuynh.photogallery.fragments.SectionFragment;
 import me.tamhuynh.photogallery.models.GalleryItem;
 
 public class MainActivity extends AppCompatActivity {
-    @BindView(R.id.toolbar) Toolbar mToolbar;
+//    @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.tabs) TabLayout mTabLayout;
     @BindView(R.id.content_pager) ViewPager mContentPager;
 
@@ -31,31 +30,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
-
         ButterKnife.bind(this);
-
-        setSupportActionBar(mToolbar);
 
         mTabLayout.setupWithViewPager(mContentPager);
 
         mGalleryItems = new ArrayList<>();
-        mGalleryItems.add(
-                new GalleryItem("http://tamhuynh.me/blog_files/photo_gallery/1_small.jpeg",
-                        "http://tamhuynh.me/blog_files/photo_gallery/1_big.jpeg"));
-        mGalleryItems.add(
-                new GalleryItem("http://tamhuynh.me/blog_files/photo_gallery/2_small.jpeg",
-                        "http://tamhuynh.me/blog_files/photo_gallery/2_big.jpeg"));
-        mGalleryItems.add(
-                new GalleryItem("http://tamhuynh.me/blog_files/photo_gallery/3_small.jpeg",
-                        "http://tamhuynh.me/blog_files/photo_gallery/3_big.jpeg"));
-        mGalleryItems.add(
-                new GalleryItem("http://tamhuynh.me/blog_files/photo_gallery/4_small.jpeg",
-                        "http://tamhuynh.me/blog_files/photo_gallery/4_big.jpeg"));
+        mGalleryItems.add(new GalleryItem("1_small.jpeg", "1_big.jpeg"));
+        mGalleryItems.add(new GalleryItem("2_small.jpeg", "2_big.jpeg"));
+        mGalleryItems.add(new GalleryItem("3_small.jpeg", "3_big.jpeg"));
+        mGalleryItems.add(new GalleryItem("4_small.jpeg", "4_big.jpeg"));
 
         mSections = new SectionFragment[] {
-                RecyclerViewGalleryFragment.newInstance(mGalleryItems),
-                ListViewGalleryFragment.newInstance(mGalleryItems)
+                LevelOneGalleryFragment.newInstance(mGalleryItems),
+                LevelTwoGalleryFragment.newInstance(mGalleryItems)
         };
 
         mContentPager.setAdapter(new SectionPagerAdapter(getSupportFragmentManager()));

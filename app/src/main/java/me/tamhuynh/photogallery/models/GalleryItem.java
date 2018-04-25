@@ -8,11 +8,9 @@ import android.os.Parcelable;
  *
  */
 public class GalleryItem implements Parcelable {
-    private final static String GALLERY_URL_PREFIX = "";
+    private final static String GALLERY_URL_PREFIX = "http://tamhuynh.me/blog_files/photo_gallery/";
 
-    private static int mItemCount;
-
-    private int mId;
+    private String mId;
 
     private String mThumbnailImg;
     private String mOriginalImg;
@@ -20,7 +18,7 @@ public class GalleryItem implements Parcelable {
     public GalleryItem(String img) {
         mThumbnailImg = GALLERY_URL_PREFIX + img;
 
-        mId = mItemCount++;
+        mId = mThumbnailImg;
     }
 
     public GalleryItem(String thumbnailImg, String originalImg) {
@@ -30,12 +28,12 @@ public class GalleryItem implements Parcelable {
     }
 
     private GalleryItem(Parcel in) {
-        mId = in.readInt();
+        mId = in.readString();
         mThumbnailImg = in.readString();
         mOriginalImg = in.readString();
     }
 
-    public int getId() {
+    public String getId() {
         return mId;
     }
 
@@ -54,7 +52,7 @@ public class GalleryItem implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(mId);
+        dest.writeString(mId);
         dest.writeString(mThumbnailImg);
         dest.writeString(mOriginalImg);
     }

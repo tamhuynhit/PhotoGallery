@@ -36,7 +36,6 @@ public abstract class SectionFragment extends Fragment {
     public final static String FRAGMENT_ARG_GALLERY = "arg_gallery";
 
     protected ArrayList<GalleryItem> mGalleryItems;
-    protected ImageView mSelectedImageView;
 
     protected abstract void initView();
     public abstract String getTitle();
@@ -75,12 +74,6 @@ public abstract class SectionFragment extends Fragment {
     }
 
     class RecyclerViewGalleryAdapter extends RecyclerView.Adapter<ViewHolder> {
-        private AdapterItemListener mListener;
-
-        public void setListener(AdapterItemListener listener) {
-            mListener = listener;
-        }
-
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -108,8 +101,6 @@ public abstract class SectionFragment extends Fragment {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mSelectedImageView = holder.mPhotoImg;
-
                     handleItemClicked(holder, galleryItem);
                 }
             });
@@ -119,17 +110,5 @@ public abstract class SectionFragment extends Fragment {
         public int getItemCount() {
             return mGalleryItems != null ? mGalleryItems.size() : 0;
         }
-
-        @Override
-        public void onViewAttachedToWindow(@NonNull ViewHolder holder) {
-            super.onViewAttachedToWindow(holder);
-
-            if (mListener != null)
-                mListener.onAttachedToWindow(holder);
-        }
-    }
-
-    public interface AdapterItemListener {
-        void onAttachedToWindow(@NonNull ViewHolder holder);
     }
 }

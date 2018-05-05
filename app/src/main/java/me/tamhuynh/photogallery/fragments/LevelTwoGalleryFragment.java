@@ -42,6 +42,7 @@ public class LevelTwoGalleryFragment extends SectionFragment {
 
     @Override
     protected void handleItemClicked(ViewHolder holder, GalleryItem item) {
+        // Show fullscreen activity with single photo
         Intent intent = new Intent(getActivity(), LevelTwoFullPhotoActivity.class);
         intent.putExtra(LevelTwoFullPhotoActivity.PHOTO_GALLERY_ITEM, item);
 

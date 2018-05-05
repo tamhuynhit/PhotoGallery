@@ -46,19 +46,20 @@ public class LevelTwoFullPhotoActivity extends AppCompatActivity {
         if (data != null) {
             mGallery = data.getParcelable(PHOTO_GALLERY_ITEM);
 
+            // Postpone the Shared Element transition to wait until image is fully loaded
             supportPostponeEnterTransition();
 
             // Set the transition name from the selected item
             ViewCompat.setTransitionName(mPhotoImg, String.valueOf(mGallery.getId()));
         }
 
-        loadFullImg();
+        loadImg();
     }
 
     /**
      * Load thumbnail low-resolution photo first and continue the transition, then start loading the full-resolution photo
      */
-    private void loadFullImg() {
+    private void loadImg() {
         // Define thumbnail request, using the thumbnail img (which is already been cached if loaded in previous list activity)
         RequestBuilder<Drawable> thumbnailBuilder =  Glide.with(this)
                 .load(Uri.parse(mGallery.getThumbnailImg()))

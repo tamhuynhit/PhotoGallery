@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.tamhuynh.photogallery.ActivityReturnHandler;
 import me.tamhuynh.photogallery.R;
+import me.tamhuynh.photogallery.fragments.LevelFiveGalleryFragment;
 import me.tamhuynh.photogallery.fragments.LevelFourGalleryFragment;
 import me.tamhuynh.photogallery.fragments.LevelOneGalleryFragment;
 import me.tamhuynh.photogallery.fragments.LevelThreeGalleryFragment;
@@ -54,7 +55,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                 LevelOneGalleryFragment.newInstance(mGalleryItems),
                 LevelTwoGalleryFragment.newInstance(mGalleryItems),
                 LevelThreeGalleryFragment.newInstance(mGalleryItems),
-                LevelFourGalleryFragment.newInstance(mGalleryItems)
+                LevelFourGalleryFragment.newInstance(mGalleryItems),
+                LevelFiveGalleryFragment.newInstance(mGalleryItems)
         };
 
         mContentPager.addOnPageChangeListener(this);
